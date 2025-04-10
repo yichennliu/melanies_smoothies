@@ -44,8 +44,8 @@ try:
                 st.error(f"Failed to fetch details for {fruit_chosen}: {str(e)}")
 
         # SQL statement to insert order into database (assuming proper handling of SQL injection risk)
-        ingredients_string = ingredients_string.strip().lower()
-        name_on_order = name_on_order.strip().lower()
+        ingredients_string = ingredients_string.strip()
+        name_on_order = name_on_order.strip()
 
         my_insert_stmt = """insert into smoothies.public.orders(ingredients, name_on_order)
                     values ('""" + ingredients_string + """','""" + name_on_order + """')"""
