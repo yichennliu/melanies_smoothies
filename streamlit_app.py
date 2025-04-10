@@ -28,8 +28,11 @@ try:
 
     # Process ingredients selection
     if ingredients_list:
-        ingredients_string = ' '.join(ingredients_list)  # Join selected ingredients into a single string
+        ingredients_string = ''
+        
+        
         for fruit_chosen in ingredients_list:
+            ingredients_string += fruit_chosen + ' '
             try:
                 # Make API request to get details about each fruit
                 fruityvice_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+ fruit_chosen)
@@ -43,13 +46,11 @@ try:
             except requests.exceptions.RequestException as e:
                 st.error(f"Failed to fetch details for {fruit_chosen}: {str(e)}")
 
-        # SQL statement to insert order into database (assuming proper handling of SQL injection risk)
-        ingredients_string = ingredients_string.strip()
-        name_on_order = name_on_order.strip()
+        st.write(ingredients_string)
 
-        my_insert_stmt = """insert into smoothies.public.orders(ingredients, name_on_order)
-                    values ('""" + ingredients_string + """','""" + name_on_order + """')"""
-
+        my_insert_stmt = """ insert into smoothies.public.orders
+        (ingredients, name_on_order)
+        values ('""" + ingredients_string + """', '""" + name_on_order +"""')"""
 
 
         # Button to submit order
